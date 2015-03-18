@@ -8,7 +8,7 @@
 4. Run: `mvn clean install`
 5. To test locally: `mvn appengine:devserver`, then open your web browser at <http://localhost:8080>
 6. To deploy: `mvn appengine:update`
-7. Your app should be available at: http://<app-id>.appspot.com
+7. Your app should be available at: <http://app-id.appspot.com>
 
 ## What needs to be changed?
 
