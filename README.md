@@ -1,13 +1,12 @@
-ECE1779H Assignment 2 -- Google App Engine
-=============================
+## ECE1779H Assignment 2 - GAE
 
-## To build.
+### To build.
 
 1. Install maven
 2. Git clone the project
 3. `cd` to the project
 4. Run: `mvn clean install`
-5. To test locally: `mvn appengine:devserver`
+5. To test locally: `mvn appengine:devserver`, then open your web browser at http://localhost:8080
 6. To deploy: `mvn appengine:update`
 
 ## What needs to be changed?
