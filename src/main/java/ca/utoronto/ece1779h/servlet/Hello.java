@@ -36,12 +36,42 @@ public class Hello extends HttpServlet {
         }
 
         resp.setContentType("text/html");
+        resp.getWriter().println("<html>");
+        resp.getWriter().println("<head>");
         resp.getWriter().println(loginBar);
-        resp.getWriter().println("Hello, this is a testing servlet.<br>");
-        resp.getWriter().println("App name: " + Constants.getAppId() + "<br>");
+        resp.getWriter().println("</head>");
+        resp.getWriter().println("<body>");
+		resp.getWriter().println("<link rel=\"stylesheet\" href=\"stylesheets/mystyle.css\">");
+        resp.getWriter().println(flip_container(
+        							"Hello, this is a testing servlet.<br>",
+        							"App name: " + Constants.getAppId() + "<br>"));
+
         for (String item : calendarNames) {
             resp.getWriter().println(item + "<br>");
         }
 
+        resp.getWriter().println("</body>");
+        resp.getWriter().println("</html>");
+    }
+
+    public String flip_container(String front, String back){
+    	String html = "";
+
+    	html += "<div class=\"flip-container\" ontouchstart=\"this.classList.toggle('hover');\">\n";
+    	html += "\t<div class=\"flipper\">\n";
+    	html += "\t\t<div class=\"front\">\n";
+
+    	html += "\t\t\t<p>" + front + "<br></p>\n";
+
+		html += "\t\t</div>\n";
+		html += "\t\t<div class=\"back\">\n";
+
+		html += "\t\t\t<p>" + back + "<br></p>\n";
+
+		html += "\t\t</div>\n";
+		html += "\t</div>\n";
+		html += "</div>\n";
+
+		return html;
     }
 }
