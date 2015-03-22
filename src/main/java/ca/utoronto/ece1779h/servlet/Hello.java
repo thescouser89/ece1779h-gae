@@ -9,6 +9,8 @@ import java.util.List;
 
 import ca.utoronto.ece1779h.Constants;
 import ca.utoronto.ece1779h.calendar.GCalendarService;
+import ca.utoronto.ece1779h.model.Flashcard;
+import ca.utoronto.ece1779h.model.StackCard;
 import com.google.appengine.api.users.User;
 import ca.utoronto.ece1779h.calendar.Utils;
 
@@ -23,25 +25,20 @@ public class Hello extends HttpServlet {
 
         String loginBar = Authentication.getLoginBar();
 
-        List<String> calendarNames = new LinkedList<String>();
-
-        if (user != null) {
-            if (Utils.hasCredentials()) {
-                calendarNames = GCalendarService.getCalendars();
-            } else {
-                String urlRedirect = GCalendarService.getURLForAuth("/");
-                resp.sendRedirect(urlRedirect);
-                return;
-            }
-        }
-
         resp.setContentType("text/html");
         resp.getWriter().println(loginBar);
         resp.getWriter().println("Hello, this is a testing servlet.<br>");
         resp.getWriter().println("App name: " + Constants.getAppId() + "<br>");
-        for (String item : calendarNames) {
-            resp.getWriter().println(item + "<br>");
-        }
+        
+        StackCard haha = new StackCard();
+        haha.setName("heroku");
+        haha.save();
 
+        Flashcard card = new Flashcard();
+        card.setQuestion("WHo are you?");
+        card.setQuestion("I AM GROOOT");
+        card.setStackCard(haha.getKey());
+        card.save();
+        resp.getWriter().println(card);
     }
 }
