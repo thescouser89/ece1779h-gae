@@ -9,8 +9,6 @@ import java.util.List;
 
 import ca.utoronto.ece1779h.Constants;
 import ca.utoronto.ece1779h.calendar.GCalendarService;
-import ca.utoronto.ece1779h.model.Flashcard;
-import ca.utoronto.ece1779h.model.StackCard;
 import com.google.appengine.api.users.User;
 import ca.utoronto.ece1779h.calendar.Utils;
 
@@ -26,19 +24,38 @@ public class Hello extends HttpServlet {
         String loginBar = Authentication.getLoginBar();
 
         resp.setContentType("text/html");
+        resp.getWriter().println("<html>");
+        resp.getWriter().println("<head>");
         resp.getWriter().println(loginBar);
-        resp.getWriter().println("Hello, this is a testing servlet.<br>");
-        resp.getWriter().println("App name: " + Constants.getAppId() + "<br>");
-        
-        StackCard haha = new StackCard();
-        haha.setName("heroku");
-        haha.save();
+        resp.getWriter().println("</head>");
+        resp.getWriter().println("<body>");
+		resp.getWriter().println("<link rel=\"stylesheet\" href=\"stylesheets/mystyle.css\">");
+        resp.getWriter().println(flip_container(
+        							"Hello, this is a testing servlet.<br>",
+        							"App name: " + Constants.getAppId() + "<br>"));
 
-        Flashcard card = new Flashcard();
-        card.setQuestion("WHo are you?");
-        card.setQuestion("I AM GROOOT");
-        card.setStackCard(haha.getKey());
-        card.save();
-        resp.getWriter().println(card);
+        resp.getWriter().println("</body>");
+        resp.getWriter().println("</html>");
+    }
+
+    public String flip_container(String front, String back){
+    	String html = "";
+
+    	html += "<div class=\"flip-container\" ontouchstart=\"this.classList.toggle('hover');\">\n";
+    	html += "\t<div class=\"flipper\">\n";
+    	html += "\t\t<div class=\"front\">\n";
+
+    	html += "\t\t\t<p>" + front + "<br></p>\n";
+
+		html += "\t\t</div>\n";
+		html += "\t\t<div class=\"back\">\n";
+
+		html += "\t\t\t<p>" + back + "<br></p>\n";
+
+		html += "\t\t</div>\n";
+		html += "\t</div>\n";
+		html += "</div>\n";
+
+		return html;
     }
 }
