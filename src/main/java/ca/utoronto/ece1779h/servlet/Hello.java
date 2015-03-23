@@ -23,18 +23,6 @@ public class Hello extends HttpServlet {
 
         String loginBar = Authentication.getLoginBar();
 
-        List<String> calendarNames = new LinkedList<String>();
-
-        if (user != null) {
-            if (Utils.hasCredentials()) {
-                calendarNames = GCalendarService.getCalendars();
-            } else {
-                String urlRedirect = GCalendarService.getURLForAuth("/");
-                resp.sendRedirect(urlRedirect);
-                return;
-            }
-        }
-
         resp.setContentType("text/html");
         resp.getWriter().println("<html>");
         resp.getWriter().println("<head>");
@@ -45,10 +33,6 @@ public class Hello extends HttpServlet {
         resp.getWriter().println(flip_container(
         							"Hello, this is a testing servlet.<br>",
         							"App name: " + Constants.getAppId() + "<br>"));
-
-        for (String item : calendarNames) {
-            resp.getWriter().println(item + "<br>");
-        }
 
         resp.getWriter().println("</body>");
         resp.getWriter().println("</html>");

@@ -8,12 +8,12 @@
 4. Run: `mvn clean install`
 5. To test locally: `mvn appengine:devserver`, then open your web browser at <http://localhost:8080>
 6. To deploy: `mvn appengine:update`
-7. Your app should be available at: <http://app-id.appspot.com>
+7. Your app should be available at: <http://app-key.appspot.com>
 
 ## What needs to be changed?
 
 In the file `src/main/webapp/WEB-INF/appengine-web.xml`, edit the application
-name to have the app-id you have created.
+name to have the app-key you have created.
 
 ## Google App Engine App Configuration
 To be able to deploy this app, you will need to edit some changes to your GAE
@@ -26,7 +26,7 @@ app configuration.
    then select "Web Application". Note: Change your origin and callback links
    so that they are the same as your application URL.
    
-3. Download the JSON file for the new client id, rename it to 
+3. Download the JSON file for the new client key, rename it to
    `client_secrets.json` and put it inside `src/main/resources`. You should be
    good to go now!
 
