@@ -20,7 +20,7 @@ head {
 	perspective: 1000;
 }
 	/* flip the pane when hovered */
-	.flip-container:hover .flipper, .flip-container.hover .flipper {
+	.flip-container:hover .active, .flip-container.active .flipper {
 		transform: rotateY(180deg);
 	}
 

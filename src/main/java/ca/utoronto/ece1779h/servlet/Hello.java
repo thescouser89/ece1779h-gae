@@ -57,7 +57,7 @@ public class Hello extends HttpServlet {
     public String flip_container(String front, String back){
     	String html = "";
 
-    	html += "<div class=\"flip-container\" ontouchstart=\"this.classList.toggle('hover');\">\n";
+    	html += "<div class=\"flip-container\" ontouchstart=\"this.classList.toggle('active');\">\n";
     	html += "\t<div class=\"flipper\">\n";
     	html += "\t\t<div class=\"front\">\n";
 
