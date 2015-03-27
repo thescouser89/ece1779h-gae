@@ -34,6 +34,21 @@ public class Hello extends HttpServlet {
         							"Hello, this is a testing servlet.<br>",
         							"App name: " + Constants.getAppId() + "<br>"));
 
+        String newCardForm = "<form action='/card' method='post'>" +
+                "<label for='question'>" +
+                "Question:" +
+                "</label><br>" +
+                "<input name='question' id='question' type='text' size='50' " +
+                "value='' /><br>" +
+                "<label for='answer'>" +
+                "Answer:" +
+                "</label><br>" +
+                "<input name='answer' id='answer' type='text' size='50' " +
+                "value='' /><br>" +
+                "<input type='submit' value='Set' />" +
+                "</form>";
+        resp.getWriter().println(newCardForm);
+
         resp.getWriter().println("</body>");
         resp.getWriter().println("</html>");
     }
