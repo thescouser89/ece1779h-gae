@@ -5,6 +5,7 @@ import com.google.appengine.api.datastore.Key;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.Override;
+import javax.persistence.Column;
 
 @Entity
 public class Flashcard implements Serializable {
@@ -18,15 +19,37 @@ public class Flashcard implements Serializable {
     @Column(length = 10000)
     private String answer;
 
-    public Key getStackCard() {
-        return stackCard;
+    @Column
+    private int numberRights;
+
+    @Column
+    private int numberWrongs;
+
+    public Key getStackcardKey() {
+        return stackcard;
     }
 
-    public void setStackCard(Key stackCard) {
-        this.stackCard = stackCard;
+    public void setStackcardKey(Key stackcard) {
+        this.stackcard = stackcard;
     }
 
-    private Key stackCard;
+    /**
+     * Warning: not tested! ping Dustin if that doesn't work
+     * @return
+     */
+    public Stackcard stackcard() {
+        EntityManager em = EMF.get().createEntityManager();
+        try {
+            Query q = em.createQuery("find stackcard from Stackcard stackcard where stackcard.key = :key");
+            return (Stackcard) q.setParameter("key", getStackcardKey()).getSingleResult();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+
+    @Column(nullable = false, updatable = false)
+    private Key stackcard;
 
     public Key getKey() {
         return this.key;
@@ -65,18 +88,6 @@ public class Flashcard implements Serializable {
         this.answer = answer;
     }
 
-    @Override
-    public String toString() {
-        String result = getClass().getSimpleName() + " ";
-        if (key != null)
-            result += "key: " + key;
-        if (question != null && !question.trim().isEmpty())
-            result += ", question: " + question;
-        if (answer != null && !answer.trim().isEmpty())
-            result += ", answer: " + answer;
-        return result;
-    }
-
     public void save() {
         EntityManager em = EMF.get().createEntityManager();
         try {
@@ -92,5 +103,37 @@ public class Flashcard implements Serializable {
         int result = 1;
         result = prime * result + ((question == null) ? 0 : question.hashCode());
         return result;
+    }
+
+    public int getNumberRights() {
+        return numberRights;
+    }
+
+    public int getNumberWrongs() {
+        return numberWrongs;
+    }
+
+    @Override
+    public String toString() {
+        String result = getClass().getSimpleName() + " ";
+        if (question != null && !question.trim().isEmpty())
+            result += "question: " + question;
+        if (answer != null && !answer.trim().isEmpty())
+            result += ", answer: " + answer;
+        result += ", numberRights: " + numberRights;
+        result += ", numberWrongs: " + numberWrongs;
+        return result;
+    }
+
+    public int incrementRights() {
+        numberRights++;
+        save();
+        return numberRights;
+    }
+
+    public int incrementWrongs() {
+        numberWrongs++;
+        save();
+        return numberWrongs;
     }
 }
