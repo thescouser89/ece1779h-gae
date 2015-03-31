@@ -89,6 +89,7 @@ public class Flashcard implements Serializable {
     }
 
     public void save() {
+		FlashcardHelper.removeFromCache(key);
         EntityManager em = EMF.get().createEntityManager();
         try {
             em.merge(this);
@@ -113,6 +114,14 @@ public class Flashcard implements Serializable {
         return numberWrongs;
     }
 
+    public void setNumberRights(int n) {
+        numberRights = n;
+    }
+
+    public void setNumberWrongs(int n) {
+        numberWrongs = n;
+    }
+	
     @Override
     public String toString() {
         String result = getClass().getSimpleName() + " ";
