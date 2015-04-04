@@ -69,7 +69,7 @@ stackcards_index.jsp
 					<a 	href="javascript:void(0);" style="display:none;" 
 						onClick="rename('<%= KeyFactory.keyToString(s.getKey()) %>');this.style.display='none';"
 						id="id_sc_savebutton_<%= KeyFactory.keyToString(s.getKey()) %>">Save</a>
-					<a href="/viewstack?key=<%= KeyFactory.keyToString(s.getKey()) %>">View</a>
+					<a href="/flashcard?key=<%= KeyFactory.keyToString(s.getKey()) %>">View</a>
 					<a href="/deletestack?key=<%= KeyFactory.keyToString(s.getKey()) %>">Delete</a>
 				</div>
 			<%

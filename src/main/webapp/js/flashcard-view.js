@@ -41,7 +41,8 @@ function Save(){
 	tdButtons.html("<button class='btnDelete'>delete</button><button class='btnEdit'>edit</button>");
 
 	alert("I am being saved!");
-	$.post( "/flashcard", { question: questionInputText.val(), answer: answerInputText.val()})
+	alert(questionInputText.data("key"));
+	$.post( "/flashcardSave", { question: questionInputText.val(), answer: answerInputText.val(), keyStack: questionInputText.data("key")})
         .done(function( data ) {
             alert( "Data Loaded: " + data );
         }).fail(function() {

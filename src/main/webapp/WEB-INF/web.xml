@@ -62,13 +62,21 @@
         <servlet-name>home</servlet-name>
         <jsp-file>/index.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>flashflash</servlet-name>
+        <jsp-file>/flashcard.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>flashflash</servlet-name>
+        <url-pattern>/flashcard</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>card</servlet-name>
         <url-pattern>/card</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>flashcard</servlet-name>
-        <url-pattern>/flashcard</url-pattern>
+        <url-pattern>/flashcardSave</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>home</servlet-name>
