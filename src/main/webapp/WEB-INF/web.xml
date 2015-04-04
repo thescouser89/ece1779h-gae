@@ -7,6 +7,10 @@
         <servlet-class>ca.utoronto.ece1779h.servlet.CardServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>flashcard</servlet-name>
+        <servlet-class>ca.utoronto.ece1779h.servlet.FlashcardUpdate</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>Hello</servlet-name>
         <servlet-class>ca.utoronto.ece1779h.servlet.Hello</servlet-class>
     </servlet>
@@ -18,14 +22,19 @@
         <servlet-name>newStack</servlet-name>
         <servlet-class>ca.utoronto.ece1779h.servlet.NewStack</servlet-class>
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>card</servlet-name>
         <url-pattern>/card</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Hello</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>flashcard</servlet-name>
+        <url-pattern>/flashcard</url-pattern>
     </servlet-mapping>
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>Hello</servlet-name>-->
+        <!--<url-pattern>/</url-pattern>-->
+    <!--</servlet-mapping>-->
     <servlet-mapping>
         <servlet-name>oauth</servlet-name>
         <url-pattern>/oauth2callback</url-pattern>
