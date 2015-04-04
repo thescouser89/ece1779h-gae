@@ -20,6 +20,7 @@
     <link href="../stylesheets/sweet-alert.css" rel="stylesheet">
   </head>
   <body>
+  <h1><%= stack.getName() %></h1>
   <a href="/train?key=<%= keyString %>" >TRAIN</a>
     <table id="tblData" data-keystack="<%= keyString %>">
       <thead>
