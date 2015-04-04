@@ -11,11 +11,17 @@
 
     <static-files>
         <include path="/favicon.ico" />
+<<<<<<< HEAD
         <include path="/js/*" />
         <include path="/fonts/*" />
         <include path="/font-awesome/**" />
         <include path="/img/*" />
         <include path="/stylesheets/*" />
         <include path="/flashcard-view/*" />
+=======
+        <include path="stylesheets/mystyle.css" />
+        <include path="stylesheets/train.css" />
+        <include path="js/train.js" />
+>>>>>>> b7738962c4a4b65a36cfc7189959109ce7315b59
     </static-files>
 </appengine-web-app>
