@@ -69,26 +69,33 @@
 <html>
 <head>
 
-<%= loginBar %>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/train.js"></script>
 
 <link rel="stylesheet" href="stylesheets/train.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 </head>
 
 <body onload="progress_update();">
 
-<div class="flip"> 
-    <div class="card"> 
-        <div class="face front"> 
-            <h1 id="question">Start</h1>
-        </div> 
-        <div class="face back"> 
-            <h1 id="answer">Ready?</h1>
-        </div> 
-    </div> 
+<div class="container">
+<%= loginBar %>
+
+<div class="jumbotron">
+	<div class="flip"> 
+	    <div class="card"> 
+	        <div class="face front"> 
+	            <h1 id="question">Start</h1>
+	        </div> 
+	        <div class="face back"> 
+	            <h1 id="answer">Ready?</h1>
+	        </div> 
+	    </div> 
+	</div> 
+	<p class="text-center" id="progress"></p>
 </div> 
 
 <script>
@@ -178,10 +185,13 @@
 
 </script>
 
-<p id="progress"></p>
-<input type="button" value="Wrong" id="wrongButton" onclick="wrong()"><br>
-<input type="button" value="Prev" id="prevButton" onclick="previous()">
-<input type="button" value="Next" id="nextButton" onclick="next()">
+<div id="button_container" class="text-center">
+	<input type="button" class="btn btn-info" value="Prev" id="prevButton" onclick="previous()">
+	<input type="button" class="btn btn-info" value="Wrong" id="wrongButton" onclick="wrong()">
+	<input type="button" class="btn btn-info" value="Next" id="nextButton" onclick="next()">
+</div>
+
+</div>
 
 </body>
 </html>
