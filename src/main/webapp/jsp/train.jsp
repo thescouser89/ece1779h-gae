@@ -1,6 +1,7 @@
 <%@ page import="ca.utoronto.ece1779h.model.*" %>
 <%@ page import="ca.utoronto.ece1779h.authentication.Authentication" %>
 <%@ page import="com.google.appengine.api.users.User" %>
+<%@ page import="com.google.appengine.api.datastore.KeyFactory" %>
 
 <%
         User user = Authentication.authenticate();
@@ -39,6 +40,9 @@
 	    /* UNCOMMENT ONCE A WAY TO CREATE STACKS WAS IMPLEMENTED */
 	    //List<Stackcard> stacks = Stackcard.getStacks(user.getUserId());
 	    //stack = stacks.get(0);
+	    //
+	    //String key = req.getParameter("key")
+	    //StackcardHelper stack = getStackcard(KeyFactory.stringToKey(key));
         //
 	    //List<Flashcard> cards = stack.getFlashcards();
         //
