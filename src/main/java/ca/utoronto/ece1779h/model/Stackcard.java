@@ -89,6 +89,7 @@ public class Stackcard implements Serializable {
     }
 
     public void save() {
+		StackcardHelper.removeFromCache(key);
         EntityManager em = EMF.get().createEntityManager();
         try {
             em.merge(this);
