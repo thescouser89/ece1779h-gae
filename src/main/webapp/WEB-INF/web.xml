@@ -22,7 +22,6 @@
         <servlet-name>newStack</servlet-name>
         <servlet-class>ca.utoronto.ece1779h.servlet.NewStack</servlet-class>
     </servlet>
-<<<<<<< HEAD
 	<servlet>
 		<servlet-name>myStacks</servlet-name>
 		<jsp-file>myStackcards.jsp</jsp-file>
@@ -55,12 +54,10 @@
         <servlet-name>createStack</servlet-name>
         <url-pattern>/createstack</url-pattern>
     </servlet-mapping>
-=======
     <servlet>
         <servlet-name>train</servlet-name>
         <jsp-file>/jsp/train.jsp</jsp-file>
     </servlet>
->>>>>>> origin/master
     <servlet-mapping>
         <servlet-name>card</servlet-name>
         <url-pattern>/card</url-pattern>
