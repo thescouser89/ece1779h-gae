@@ -7,6 +7,10 @@
         <servlet-class>ca.utoronto.ece1779h.servlet.CardServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>flashcard</servlet-name>
+        <servlet-class>ca.utoronto.ece1779h.servlet.FlashcardUpdate</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>Hello</servlet-name>
         <servlet-class>ca.utoronto.ece1779h.servlet.Hello</servlet-class>
     </servlet>
@@ -18,6 +22,7 @@
         <servlet-name>newStack</servlet-name>
         <servlet-class>ca.utoronto.ece1779h.servlet.NewStack</servlet-class>
     </servlet>
+<<<<<<< HEAD
 	<servlet>
 		<servlet-name>myStacks</servlet-name>
 		<jsp-file>myStackcards.jsp</jsp-file>
@@ -50,14 +55,24 @@
         <servlet-name>createStack</servlet-name>
         <url-pattern>/createstack</url-pattern>
     </servlet-mapping>
+=======
+    <servlet>
+        <servlet-name>train</servlet-name>
+        <jsp-file>/jsp/train.jsp</jsp-file>
+    </servlet>
+>>>>>>> origin/master
     <servlet-mapping>
         <servlet-name>card</servlet-name>
         <url-pattern>/card</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Hello</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>flashcard</servlet-name>
+        <url-pattern>/flashcard</url-pattern>
     </servlet-mapping>
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>Hello</servlet-name>-->
+        <!--<url-pattern>/</url-pattern>-->
+    <!--</servlet-mapping>-->
     <servlet-mapping>
         <servlet-name>oauth</servlet-name>
         <url-pattern>/oauth2callback</url-pattern>
@@ -65,5 +80,9 @@
     <servlet-mapping>
         <servlet-name>newStack</servlet-name>
         <url-pattern>/newStack</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>train</servlet-name>
+        <url-pattern>/train</url-pattern>
     </servlet-mapping>
 </web-app>
