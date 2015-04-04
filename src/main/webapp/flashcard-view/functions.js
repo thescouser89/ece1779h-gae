@@ -97,6 +97,8 @@ function Delete(){
 })(jQuery);
 
 $(function(){
+    // get pretty pie charts
+    $("span.pie").peity("pie");
 	//Add, Save, Edit and Delete functions code
 	// $(".btnEdit").bind("click", Edit);
 	// $(".btnDelete").bind("click", Delete);
