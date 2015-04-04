@@ -1,3 +1,11 @@
+<%@ page import="com.google.appengine.api.users.User" %>
+<%@ page import="com.google.appengine.api.users.UserService" %>
+<%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
+<%
+    UserService userService = UserServiceFactory.getUserService();
+    User user = userService.getCurrentUser();
+    String login = userService.createLoginURL("/mystacks");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,7 +64,7 @@
                         <a class="page-scroll" href="#about">About</a>
                     </li>
                     <li>
-                        <a href="#">Sign-In</a>
+                        <a href="<%= login %>">Sign-In</a>
                     </li>
                 </ul>
             </div>

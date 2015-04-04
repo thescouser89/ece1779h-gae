@@ -24,19 +24,19 @@
     </servlet>
 	<servlet>
 		<servlet-name>myStacks</servlet-name>
-		<jsp-file>myStackcards.jsp</jsp-file>
+		<jsp-file>/myStackcards.jsp</jsp-file>
 	</servlet>
 	<servlet>
 		<servlet-name>deleteStack</servlet-name>
-		<jsp-file>deleteStackcard.jsp</jsp-file>
+		<jsp-file>/deleteStackcard.jsp</jsp-file>
 	</servlet>
 	<servlet>
 		<servlet-name>renameStack</servlet-name>
-		<jsp-file>renameStackcard.jsp</jsp-file>
+		<jsp-file>/renameStackcard.jsp</jsp-file>
 	</servlet>
 	<servlet>
 		<servlet-name>createStack</servlet-name>
-		<jsp-file>createStackcard.jsp</jsp-file>
+		<jsp-file>/createStackcard.jsp</jsp-file>
 	</servlet>
     <servlet-mapping>
         <servlet-name>myStacks</servlet-name>
@@ -58,6 +58,10 @@
         <servlet-name>train</servlet-name>
         <jsp-file>/jsp/train.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>home</servlet-name>
+        <jsp-file>/index.jsp</jsp-file>
+    </servlet>
     <servlet-mapping>
         <servlet-name>card</servlet-name>
         <url-pattern>/card</url-pattern>
@@ -66,10 +70,10 @@
         <servlet-name>flashcard</servlet-name>
         <url-pattern>/flashcard</url-pattern>
     </servlet-mapping>
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>Hello</servlet-name>-->
-        <!--<url-pattern>/</url-pattern>-->
-    <!--</servlet-mapping>-->
+    <servlet-mapping>
+        <servlet-name>home</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>oauth</servlet-name>
         <url-pattern>/oauth2callback</url-pattern>
