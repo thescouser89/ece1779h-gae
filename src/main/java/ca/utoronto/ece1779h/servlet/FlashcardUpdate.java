@@ -1,7 +1,11 @@
 package ca.utoronto.ece1779h.servlet;
 
 import ca.utoronto.ece1779h.model.Flashcard;
+import ca.utoronto.ece1779h.model.FlashcardHelper;
 import ca.utoronto.ece1779h.model.Stackcard;
+import ca.utoronto.ece1779h.model.StackcardHelper;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,32 +16,32 @@ public class FlashcardUpdate extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp)
         throws IOException {
         
-        // TODO
-        // maybe get user to see if he's valid?
-        Stackcard haha = new Stackcard();
-        haha.setName("dustin");
-        haha.setOwner("dustin");
-        haha.save();
-        
-        String keyId = req.getParameter("key_id");
+        String keyStack = req.getParameter("keyStack");
         String question = req.getParameter("question");
-        String answer = req.getParameter("password");
-//        String stackKeyId = req.getParameter("stack_key_id");
+        String answer = req.getParameter("answer");
+        String keyFlash = req.getParameter("keyFlash");
         
+        Flashcard flash;
         
-        // TODO
-        // new flashcard
-        if(keyId == null || keyId == "") {
-            Flashcard flash = haha.newFlashcard();
-            flash.setQuestion(question);
-            flash.setAnswer(answer);
-            flash.save();
-            resp.setStatus(HttpServletResponse.SC_ACCEPTED);
-            resp.getWriter().write(flash.getKey().toString());
-            // create new flashcard
+        // create new flashcard
+        if(keyFlash == null || keyFlash.equals("")) {
+            Key keyKeyStack = KeyFactory.stringToKey(keyStack);
+            Stackcard stack = StackcardHelper.getStackcard(keyKeyStack);
+            
+            flash = stack.newFlashcard();
         } else {
-            // find flashcard via keyid
-            // edit flashcard question and answer
+            // edit existing flashcard
+            Key keyKeyFlash = KeyFactory.stringToKey(keyFlash);
+            flash = FlashcardHelper.getFlashcard(keyKeyFlash);
         }
+        flash.setQuestion(question);
+        flash.setAnswer(answer);
+        flash.save();
+
+        // set the response, mime-type, and generate some funky json as reply
+        resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+        resp.setContentType("application/json");
+        resp.getWriter().write("{\"keyFlash\": \"" + 
+                KeyFactory.keyToString(flash.getKey()) + "\"}");
     }
 }

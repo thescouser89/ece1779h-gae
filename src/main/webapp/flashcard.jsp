@@ -20,15 +20,13 @@
     <link href="../stylesheets/sweet-alert.css" rel="stylesheet">
   </head>
   <body>
-  <a href="/train?key=<%= keyString %>" >haha</a>
-    <span class="pie">1/3</span>
-    <table id="tblData">
+  <a href="/train?key=<%= keyString %>" >TRAIN</a>
+    <table id="tblData" data-keystack="<%= keyString %>">
       <thead>
         <tr>
           <th>Success Rate</th>
           <th>Question</th>
           <th>Answer</th>
-          <th></th>
           <th></th>
         </tr>
       </thead>
@@ -36,11 +34,11 @@
       <%
       for (Flashcard f : flashcards) {
       %>
-      <tr>
-      <td><span class="pie">0/0</span></td>
-      <td data-key="<%= KeyFactory.keyToString(f.getKey()) %>"><%= f.getQuestion() %></td>
+      <tr data-key="<%= KeyFactory.keyToString(f.getKey()) %>">
+      <td><span class="pie"><%= f.getNumberRights() %>/<%= f.getNumberRights() + f.getNumberWrongs() %></span></td>
+      <td><%= f.getQuestion() %></td>
       <td><%= f.getAnswer() %></td>
-      <td></td>
+	  <td><button class='btnDelete'>delete</button><button class='btnEdit'>edit</button></td>
       </tr>
       <%
       }

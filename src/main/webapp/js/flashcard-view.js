@@ -8,13 +8,13 @@ function rebindButtonEvent() {
 function Add(){
 	$("#tblData tbody").append(
 		"<tr>"+
-		"<td>N/A</td>"+
+		"<td><span class='pie'>0/0</span></td>"+
 		"<td><input type='text' class='question' /></td>"+
 		"<td><input type='text' class='answer' /></td>"+
-		"<td><button class='btnSave'>save</button><button class='btnDelete'>delete</buton></td>"+
+		"<td><button class='btnSave'>save</button><button class='btnDelete'>delete</button></td>"+
 		"</tr>");
     rebindButtonEvent();
-
+    $("span.pie").peity("pie");
 };
 
 function Save(){
@@ -27,12 +27,12 @@ function Save(){
     var questionInputText = question.children("input[type=text]");
     var answerInputText = answer.children("input[type=text]");
 	if (questionInputText.val().trim() == "") {
-		alert("question is empty!");
+		sweetAlert("Oops...", "Question is empty!", "error");
 		questionInputText.focus();
 		return;
 	}
 	if (answerInputText.val().trim() == "") {
-		alert("answer is empty!");
+		sweetAlert("Oops...", "Answer is empty!", "error");
 		answerInputText.focus();
 		return;
 	}
@@ -40,19 +40,24 @@ function Save(){
 	answer.html(answerInputText.val());
 	tdButtons.html("<button class='btnDelete'>delete</button><button class='btnEdit'>edit</button>");
 
-	alert("I am being saved!");
-	alert(questionInputText.data("key"));
-	$.post( "/flashcardSave", { question: questionInputText.val(), answer: answerInputText.val(), keyStack: questionInputText.data("key")})
-        .done(function( data ) {
-            alert( "Data Loaded: " + data );
-        }).fail(function() {
-            sweetAlert("Oops...", "Something went wrong!", "error");
-        });
+	var keyFlashVal = null;
+	if (par.data("key") != null) {
+	    keyFlashVal = par.data("key");
+	}
+	
+	var keyStack = $('#tblData').data("keystack");
+	var data_to_send = {question: questionInputText.val(),
+	                    answer: answerInputText.val(),
+	                    keyStack: keyStack,
+	                    keyFlash: keyFlashVal};
+	$.post( "/flashcardSave", data_to_send).done(function(data) {
+            par.data("key", data["keyFlash"]);
+    }).fail(function() {
+        sweetAlert("Oops...", "Something went wrong!", "error");
+    });
         
     rebindButtonEvent();
-    // =================================================
-	// DO AJAX CALL
-    // =================================================
+    $("span.pie").peity("pie");
 };
 
 function Edit(){
@@ -74,14 +79,18 @@ function Edit(){
 function Delete(){
 	var par = $(this).parent().parent(); //tr
 	par.remove();
-	var question = par.children("td:nth-child(2)");
-	alert(question);
-    // ==========================================
-    // Do ajax call
-    // ==========================================
-	$.post( "/flashcard/delete", { question: question.val()})
+	
+	var keyFlashVal = null;
+	if (par.data("key") != null) {
+	    keyFlashVal = par.data("key");
+	}
+	
+	if (keyFlashVal == null) {
+	    return;
+	}
+	$.post( "/flashcardDelete", { keyFlash: keyFlashVal})
         .done(function( data ) {
-            alert( "Data deleted: " + data );
+            sweetAlert("Flashcard deleted!");
         }).fail(function() {
             sweetAlert("Oops...", "Something went wrong!", "error");
         });

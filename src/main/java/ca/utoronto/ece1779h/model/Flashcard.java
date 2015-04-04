@@ -13,10 +13,10 @@ public class Flashcard implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Key key;
 
-    @Column(length = 10000)
+    @Column
     private String question;
 
-    @Column(length = 10000)
+    @Column
     private String answer;
 
     @Column
@@ -123,7 +123,7 @@ public class Flashcard implements Serializable {
     public void setNumberWrongs(int n) {
         numberWrongs = n;
     }
-	
+
     @Override
     public String toString() {
         String result = getClass().getSimpleName() + " ";

@@ -7,8 +7,12 @@
         <servlet-class>ca.utoronto.ece1779h.servlet.CardServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>flashcard</servlet-name>
+        <servlet-name>flashcardUpdate</servlet-name>
         <servlet-class>ca.utoronto.ece1779h.servlet.FlashcardUpdate</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>flashcardDelete</servlet-name>
+        <servlet-class>ca.utoronto.ece1779h.servlet.FlashcardDelete</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Hello</servlet-name>
@@ -75,8 +79,12 @@
         <url-pattern>/card</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>flashcard</servlet-name>
+        <servlet-name>flashcardUpdate</servlet-name>
         <url-pattern>/flashcardSave</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>flashcardDelete</servlet-name>
+        <url-pattern>/flashcardDelete</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>home</servlet-name>
