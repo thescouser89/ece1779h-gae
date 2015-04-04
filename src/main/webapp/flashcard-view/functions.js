@@ -40,9 +40,15 @@ function Save(){
 	answer.html(answerInputText.val());
 	tdButtons.html("<button class='btnDelete'>delete</button><button class='btnEdit'>edit</button>");
 
-	$(".btnEdit").bind("click", Edit);
-	$(".btnDelete").bind("click", Delete);
 	alert("I am being saved!");
+	$.post( "/flashcard", { question: questionInputText.val(), answer: answerInputText.val()})
+        .done(function( data ) {
+            alert( "Data Loaded: " + data );
+        }).fail(function() {
+            sweetAlert("Oops...", "Something went wrong!", "error");
+        });
+        
+    rebindButtonEvent();
     // =================================================
 	// DO AJAX CALL
     // =================================================
@@ -61,18 +67,23 @@ function Edit(){
 
 	tdButtons.html("<button class='btnSave'>save</button>");
 
-	$(".btnSave").bind("click", Save);
-	$(".btnEdit").bind("click", Edit);
-	$(".btnDelete").bind("click", Delete);
-	$("input").onEnter(Save);
+    rebindButtonEvent();
 };
 
 function Delete(){
 	var par = $(this).parent().parent(); //tr
 	par.remove();
+	var question = par.children("td:nth-child(2)");
+	alert(question);
     // ==========================================
     // Do ajax call
     // ==========================================
+	$.post( "/flashcard/delete", { question: question.val()})
+        .done(function( data ) {
+            alert( "Data deleted: " + data );
+        }).fail(function() {
+            sweetAlert("Oops...", "Something went wrong!", "error");
+        });
 };
 
 
