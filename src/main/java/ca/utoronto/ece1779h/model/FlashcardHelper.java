@@ -51,8 +51,14 @@ public class FlashcardHelper {
 		
 		// Delete from datastore
 		EntityManager em = EMF.get().createEntityManager();
-		if (em.find(Flashcard.class, key) != null){
-			em.remove(key);
+		try {
+			if (em.find(Flashcard.class, key) != null){
+				em.getTransaction().begin();
+				em.remove(em.find(Flashcard.class, key) );
+				em.getTransaction().commit();
+			}
+		} finally {
+			em.close();
 		}
 	
 		return;
@@ -72,18 +78,18 @@ public class FlashcardHelper {
 	
 	public static Flashcard createFlashcard(Key stackcard, String question, String answer, int numberRights, int numberWrongs){
 		EntityManager em = EMF.get().createEntityManager();
-		
+		Flashcard fc = null;
 		try {
-			Flashcard fc = new Flashcard();
+			fc = new Flashcard();
 			fc.setStackcardKey(stackcard);
 			fc.setQuestion(question);
 			fc.setAnswer(answer);
-			
+			em.getTransaction().begin();
 			em.persist(fc);
-			
-			return fc;
+			em.getTransaction().commit();
 		} finally {
 			em.close();
+			return fc;
 		}
 	}
 	
