@@ -11,8 +11,8 @@ import ca.utoronto.ece1779h.Constants;
 import ca.utoronto.ece1779h.calendar.GCalendarService;
 import com.google.appengine.api.users.User;
 import ca.utoronto.ece1779h.calendar.Utils;
-
 import ca.utoronto.ece1779h.authentication.Authentication;
+import ca.utoronto.ece1779h.model.*;
 
 public class NewStack extends HttpServlet {
     @Override

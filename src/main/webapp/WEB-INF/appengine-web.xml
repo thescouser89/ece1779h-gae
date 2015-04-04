@@ -12,5 +12,7 @@
     <static-files>
         <include path="/favicon.ico" />
         <include path="stylesheets/mystyle.css" />
+        <include path="stylesheets/train.css" />
+        <include path="js/train.js" />
     </static-files>
 </appengine-web-app>
