@@ -22,10 +22,45 @@
         <servlet-name>newStack</servlet-name>
         <servlet-class>ca.utoronto.ece1779h.servlet.NewStack</servlet-class>
     </servlet>
+<<<<<<< HEAD
+	<servlet>
+		<servlet-name>myStacks</servlet-name>
+		<jsp-file>myStackcards.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<servlet-name>deleteStack</servlet-name>
+		<jsp-file>deleteStackcard.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<servlet-name>renameStack</servlet-name>
+		<jsp-file>renameStackcard.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<servlet-name>createStack</servlet-name>
+		<jsp-file>createStackcard.jsp</jsp-file>
+	</servlet>
+    <servlet-mapping>
+        <servlet-name>myStacks</servlet-name>
+        <url-pattern>/mystacks</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteStack</servlet-name>
+        <url-pattern>/deletestack</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>renameStack</servlet-name>
+        <url-pattern>/renamestack</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createStack</servlet-name>
+        <url-pattern>/createstack</url-pattern>
+    </servlet-mapping>
+=======
     <servlet>
         <servlet-name>train</servlet-name>
         <jsp-file>/jsp/train.jsp</jsp-file>
     </servlet>
+>>>>>>> origin/master
     <servlet-mapping>
         <servlet-name>card</servlet-name>
         <url-pattern>/card</url-pattern>
