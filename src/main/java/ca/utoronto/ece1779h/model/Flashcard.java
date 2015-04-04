@@ -44,6 +44,8 @@ public class Flashcard implements Serializable {
             return (Stackcard) q.setParameter("key", getStackcardKey()).getSingleResult();
         } catch (Exception e) {
             throw e;
+        } finally {
+            em.close();
         }
     }
 
