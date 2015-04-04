@@ -33,6 +33,8 @@ public class Stackcard implements Serializable {
             return stacks;
         } catch (Exception e) {
             throw e;
+        } finally {
+            em.close();
         }
     }
 
@@ -50,6 +52,8 @@ public class Stackcard implements Serializable {
             return flashcards;
         } catch (Exception e) {
             throw e;
+        } finally {
+            em.close();
         }
     }
 
