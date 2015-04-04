@@ -32,6 +32,9 @@ stackcards_index.jsp
 				xmlhttp.send();
 			}
 		</script>
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 		<style>
 			input{
 				border:1px solid white;
@@ -43,8 +46,8 @@ stackcards_index.jsp
 		</style>
 	</head>
 	<body>
-	
-	<h1> My Card Stacks </h1>
+	<div class="container">
+		<h1> My Card Stacks </h1>
 	
 		<ul>
 			<%
@@ -88,5 +91,6 @@ stackcards_index.jsp
 						id="id_sc_savebutton_newstack">Save</a>
 				</div>
 		</ul>
+	</div>
 	</body>
 </html>

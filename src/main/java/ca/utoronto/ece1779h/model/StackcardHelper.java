@@ -51,12 +51,16 @@ public class StackcardHelper {
 		
 		// Delete from datastore
 		EntityManager em = EMF.get().createEntityManager();
-		if (em.find(Stackcard.class, key) != null){
-			em.getTransaction().begin();
-			em.remove(em.find(Stackcard.class, key) );
-			em.getTransaction().commit();
+		try {
+			if (em.find(Stackcard.class, key) != null){
+				em.getTransaction().begin();
+				em.remove(em.find(Stackcard.class, key) );
+				em.getTransaction().commit();
+			}
+		} finally {
+			em.close();
 		}
-	
+		
 		return;
 	}
 	
@@ -74,17 +78,17 @@ public class StackcardHelper {
 	
 	public static Stackcard createStackcard(String name, String owner){
 		EntityManager em = EMF.get().createEntityManager();
-		
+		Stackcard fc = null;
 		try {
-			Stackcard fc = new Stackcard();
+			fc = new Stackcard();
 			fc.setOwner(owner);
 			fc.setName(name);
-			
+			em.getTransaction().begin();
 			em.persist(fc);
-			
-			return fc;
+			em.getTransaction().commit();
 		} finally {
 			em.close();
+			return fc;
 		}
 	}
 	
