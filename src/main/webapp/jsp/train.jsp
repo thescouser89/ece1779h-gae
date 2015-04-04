@@ -24,11 +24,17 @@
 	       "\"YES!\"," +
 	       "\"Who are YOU?\"";
 
-	    String ids = "\"111111\"," + 
-	       "\"11111A\"," + 
-	       "\"11111B\"," +
-	       "\"11111C\"," +
-	       "\"11111D\"";
+	    String ids = "\"a111111\"," + 
+	       "\"a11111A\"," + 
+	       "\"a11111B\"," +
+	       "\"a11111C\"," +
+	       "\"a11111D\"";
+
+	    String stats_by_id = "a111111: {right:0, wrong:0}," + 
+	       "a11111A: {right:0, wrong:0}," + 
+	       "a11111B: {right:0, wrong:0}," +
+	       "a11111C: {right:0, wrong:0}," +
+	       "a11111D: {right:0, wrong:0}";
 
 	    /* UNCOMMENT ONCE A WAY TO CREATE STACKS WAS IMPLEMENTED */
 	    //List<Stackcard> stacks = Stackcard.getStacks(user.getUserId());
@@ -38,10 +44,12 @@
         //
         //String questions = "";
 	    //String answers = "";
+	    //String stats_by_id = "";
 	    //for (i=0; i<cards.size(); i++){
 	    //	questions += "\"" + cards.get(i).getQuestion();
 	    //	answers   += "\"" + cards.get(i).getAnswer();
 	    //	ids       += "\"" + cards.get(i).getKey();
+	    //  stats_by_id += cards.get(i).getKey() + ":{right:0,wrong:0}";
 	    //
 	    //	if (i == cards.size()-1){
 	    //		questions += "\"";
@@ -51,6 +59,7 @@
 	    //		questions += "\",";
 	    //		answers   += "\",";
 	    //		ids       += "\",";
+	    //		stats_by_id += ",";
 	    //	}
 	    //	
 		//}
@@ -69,7 +78,7 @@
 
 </head>
 
-<body>
+<body onload="progress_update();">
 
 <div class="flip"> 
     <div class="card"> 
@@ -87,42 +96,55 @@
 	var cards = {q:  [<%= questions %>],
 				 a:  [<%= answers %>], 
 				 id: [<%= ids %>]};
-	var qArray = [<%= questions %>];
-	var aArray = [<%= answers %>];
+	var stats = {<%= stats_by_id %>};
+
+	//var stats = {a11111: {right:0, wrong:0}, 
+	//      		 a1111A: {right:0, wrong:0}, 
+	//     		 a1111B: {right:0, wrong:0},
+	//       	     a1111C: {right:0, wrong:0},
+	//    	     a1111D: {right:0, wrong:0}};
 	
 	var index = -1;
 	
 	function next() {
-		index++;
+		// Mark current card as "right"
+		if (index >= 0) stats[cards.id[index]].right++;
 
 		// If next has been pressed, we know there's a previous. Set button to visible.
 		document.getElementById('prevButton').style.visibility = 'visible ';
 
-	    // Display quizz end card.            
-	    if (index >= cards.q.length) {
+	    // Display quizz end card and stop.            
+	    if (index+1 >= cards.q.length) {
 	        document.getElementById('question').innerHTML = '<div>Quiz End, Thank you</div>'
+	        document.getElementById('answer').innerHTML = '<div></div>'
 	        document.getElementById('nextButton').style.visibility = 'hidden ';
 	        document.getElementById('wrongButton').style.visibility = 'hidden ';
-	        index = cards.q.length;
 	        return false;
 	    }
+
+		index++;
+
+		progress_update();
 	
 	    document.getElementById('question').innerHTML = cards.q[index];
 	    document.getElementById('answer').innerHTML   = cards.a[index];
 	}
 
 	function previous() {
-		index--;
-
 		// If previous has been pressed, we know there's a next. Set button to visible.
 		document.getElementById('nextButton').style.visibility = 'visible ';
+		document.getElementById('wrongButton').style.visibility = 'visible ';
 
 	    // If this is the first question stop and hide "previous" button.            
-	    if (index < 0) {
+	    if (index-1 < 0) {
 	   		document.getElementById('prevButton').style.visibility = 'hidden ';
-	        index = 0;
+	   		return false;
 	    }
-	
+
+		index--;
+
+		progress_update();
+
 	    document.getElementById('question').innerHTML = cards.q[index];
 	    document.getElementById('answer').innerHTML   = cards.a[index];
 	}
@@ -133,19 +155,30 @@
 		cards.a.push(cards.a[index]);
 		cards.id.push(cards.id[index]);
 
+		stats[cards.id[index]].wrong++;
+	}
+
+	// Genetates a card #x out of #y
+	function progress_update(){
+	    document.getElementById('progress').innerHTML =
+	    	(index+1) + " out of " + cards.q.length;
+	}
+
+	function post_stats() {
 		// ==========================================
     	// Do ajax call
     	// ==========================================
-		//$.post( "/flashcard/delete", { question: question.val()})
-        //	.done(function( data ) {
-        //    	alert( "Data deleted: " + data );
-        //	}).fail(function() {
-        //    	sweetAlert("Oops...", "Something went wrong!", "error");
-        //	});
+		$.post( "/flashcard/stats", stats)
+        	.done(function( data ) {
+            	// All is good
+        	}).fail(function() {
+            	sweetAlert("Oops...", "Something went wrong!", "error");
+        });
 	}
 
 </script>
 
+<p id="progress"></p>
 <input type="button" value="Wrong" id="wrongButton" onclick="wrong()"><br>
 <input type="button" value="Prev" id="prevButton" onclick="previous()">
 <input type="button" value="Next" id="nextButton" onclick="next()">
