@@ -56,10 +56,7 @@ stackcards_index.jsp
 				List<Stackcard> stackcards = Stackcard.getStacks(user_id);
 				
 				if (stackcards.size() == 0){
-					out.println("USER HAS NO CARD STACKS");
-					
-					StackcardHelper.createStackcard("test stack 1", user_id);
-					StackcardHelper.createStackcard("test stack 2", user_id);
+					out.println("You have no stacks! Create one below.");
 				}
 				
 				for (Stackcard s : stackcards)
