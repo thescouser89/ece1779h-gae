@@ -1,3 +1,8 @@
+//
+// For train.jsp
+// jQuery to handle the card flip and keyboard actions.
+//
+
 $(document).ready(function() {
     $('.flip').click(function(){
         $(this).find('.card').addClass('flipped').mouseleave(function(){
@@ -9,25 +14,21 @@ $(document).ready(function() {
     $("body").keydown(function(e) {
         if(e.keyCode == 16) { // shift
             wrong();
-            next();
         }
         if(e.keyCode == 32) { // spacebar
             wrong();
-            next();
         }
         if(e.keyCode == 37) { // left
             previous();
         }
         else if(e.keyCode == 39) { // right
-            next();
+            right(); // As in "the answer was right".
         }
         else if(e.keyCode == 38) { // up
             $('.flip').find('.card').removeClass('flipped')
-            //$(this).hide();
         }
         else if(e.keyCode == 40) { // down
             $('.flip').find('.card').addClass('flipped')
-            //$(this).hide();
         }
     });
 });

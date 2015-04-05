@@ -20,12 +20,12 @@ public class Authentication {
         User user =  userService.getCurrentUser();
 
 		if (user != null) {
-            loginBar = "<p>Welcome, " + user.getNickname() + "! You can <a href=\"" +
+            loginBar = "Welcome, " + user.getNickname() + "! You can <a href=\"" +
                      userService.createLogoutURL("/") +
-                     "\">sign out</a>.</p>";
+                     "\">sign out</a>.";
         } else {
-            loginBar = "<p>Welcome! <a href=\"" + userService.createLoginURL("/") +
-                     "\">Sign in or register</a> to customize.</p>";
+            loginBar = "Welcome! <a href=\"" + userService.createLoginURL("/") +
+                     "\">Sign in or register</a> to customize.";
         }
 
         return loginBar;

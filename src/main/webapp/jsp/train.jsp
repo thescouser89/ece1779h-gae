@@ -8,7 +8,7 @@
         User user = Authentication.authenticate();
         String loginBar = Authentication.getLoginBar();
 
-        // Null user shouldn't be here. Just break for now.
+        // Null user shouldn't be here. Redirect.
         if (user == null){
             response.sendRedirect("/");
         } 
@@ -53,7 +53,9 @@
 	    	questions += "\"" + cards.get(i).getQuestion();
 	    	answers   += "\"" + cards.get(i).getAnswer();
 	    	ids       += "\"" + KeyFactory.keyToString(cards.get(i).getKey());
-	    	stats_by_id += KeyFactory.keyToString(cards.get(i).getKey()) + ":{right:0,wrong:0}";
+	    	stats_by_id += KeyFactory.keyToString(cards.get(i).getKey()) 
+	    					+ ":{right:" + cards.get(i).getNumberRights()
+	    					+ ",wrong:" + cards.get(i).getNumberWrongs() + "}";
 	    
 	    	if (i == cards.size()-1){
 	    		questions += "\"";
@@ -81,123 +83,147 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 </head>
-
 <body onload="onload();">
+	<div class="container">
+		<p class="text-right"><%= loginBar %></p>
+		<div class="jumbotron">
+			<div class="flip"> 
+			    <div class="card"> 
+			        <div class="face front"> 
+			            <h2 id="question">Start</h2>
+			        </div> 
+			        <div class="face back"> 
+			            <h2 id="answer">Ready?</h2>
+			        </div> 
+			    </div> 
+			</div> 
+			<p class="text-center" id="progress"></p>
+		</div> 
+		
+		<script>
+			// Passed by jsp.
+			var cards = {q:  [<%= questions %>],
+						 a:  [<%= answers %>], 
+						 id: [<%= ids %>]};
+			var stats = {<%= stats_by_id %>};
+			
+			var index = -1;
+			
+			function onload(){
+				// Set initial button visibility
+				document.getElementById('prevButton').style.visibility = 'hidden ';
+			    document.getElementById('wrongButton').style.visibility = 'hidden ';
+		
+			    // Initialize progress string
+				progress_update();
+			}
+		
+			function next() {
+				// If "next" (or "wrong") has been pressed, we know there's a previous. Set button to visible.
+				document.getElementById('prevButton').style.visibility = 'visible ';
+		
+			    // Display quizz end card and stop.            
+			    if (index+1 >= cards.q.length) {
+			        document.getElementById('question').innerHTML = '<div>Quiz End, Thank you</div>'
+			        document.getElementById('answer').innerHTML = '<div></div>'
+			        document.getElementById('nextButton').style.visibility = 'hidden ';
+			        document.getElementById('wrongButton').style.visibility = 'hidden ';
+			        return false;
+			    }
+		
+				index++;
+		
+				progress_update();
+			
+			    document.getElementById('question').innerHTML = cards.q[index];
+			    document.getElementById('answer').innerHTML   = cards.a[index];
+			}
+		
+			function previous() {
+				// If previous has been pressed, we know there's a next. Set button to visible.
+				document.getElementById('nextButton').style.visibility = 'visible ';
+				document.getElementById('wrongButton').style.visibility = 'visible ';
+		
+			    // If this is the first question stop and hide "previous" button.            
+			    if (index-1 < 0) {
+			   		document.getElementById('prevButton').style.visibility = 'hidden ';
+			   		return false;
+			    }
+		
+				index--;
+		
+				progress_update();
+		
+			    document.getElementById('question').innerHTML = cards.q[index];
+			    document.getElementById('answer').innerHTML   = cards.a[index];
+			}
+		
+			// Right answer. Post "right" and go to next.
+			function right() {
+				// Mark current card as "right"
+				if (index >= 0) {
+					stats[cards.id[index]].right++;
+					post_right();
+				}
+		
+				next();
+			}
+		
+			// Wrong answer. Append replica at the end of array.
+			function wrong() {
+				cards.q.push(cards.q[index]);
+				cards.a.push(cards.a[index]);
+				cards.id.push(cards.id[index]);
+		
+				stats[cards.id[index]].wrong++;
+				post_wrong();
+		
+				next();
+			}
+		
+			// Genetates a card #x out of #y
+			function progress_update(){
+			    document.getElementById('progress').innerHTML =
+			    	(index+1) + " out of " + cards.q.length;
+			}
+		
+			// Send "wrong" to server for statistics.
+			function post_wrong() {
+				// ==========================================
+		    	// Do ajax call
+		    	// ==========================================
+		    	data = {id: cards.id[index], answer: 'wrong'};
+		
+				$.post( "/flashcardStats", data)
+		        	.done(function( data ) {
+		            	// All is good
+		        	}).fail(function() {
+		            	// Error happened...
+		        });
+			}
 
-<div class="container">
-<%= loginBar %>
-
-<div class="jumbotron">
-	<div class="flip"> 
-	    <div class="card"> 
-	        <div class="face front"> 
-	            <h2 id="question">Start</h2>
-	        </div> 
-	        <div class="face back"> 
-	            <h2 id="answer">Ready?</h2>
-	        </div> 
-	    </div> 
-	</div> 
-	<p class="text-center" id="progress"></p>
-</div> 
-
-<script>
-	// Passed by jsp.
-	var cards = {q:  [<%= questions %>],
-				 a:  [<%= answers %>], 
-				 id: [<%= ids %>]};
-	var stats = {<%= stats_by_id %>};
-	
-	var index = -1;
-	
-	function onload(){
-		// Set initial button visibility
-		document.getElementById('prevButton').style.visibility = 'hidden ';
-	    document.getElementById('wrongButton').style.visibility = 'hidden ';
-
-	    // Initialize progress string
-		progress_update();
-	}
-
-	function next() {
-		// Mark current card as "right"
-		if (index >= 0) stats[cards.id[index]].right++;
-
-		// If next has been pressed, we know there's a previous. Set button to visible.
-		document.getElementById('prevButton').style.visibility = 'visible ';
-
-	    // Display quizz end card and stop.            
-	    if (index+1 >= cards.q.length) {
-	        document.getElementById('question').innerHTML = '<div>Quiz End, Thank you</div>'
-	        document.getElementById('answer').innerHTML = '<div></div>'
-	        document.getElementById('nextButton').style.visibility = 'hidden ';
-	        document.getElementById('wrongButton').style.visibility = 'hidden ';
-	        return false;
-	    }
-
-		index++;
-
-		progress_update();
-	
-	    document.getElementById('question').innerHTML = cards.q[index];
-	    document.getElementById('answer').innerHTML   = cards.a[index];
-	}
-
-	function previous() {
-		// If previous has been pressed, we know there's a next. Set button to visible.
-		document.getElementById('nextButton').style.visibility = 'visible ';
-		document.getElementById('wrongButton').style.visibility = 'visible ';
-
-	    // If this is the first question stop and hide "previous" button.            
-	    if (index-1 < 0) {
-	   		document.getElementById('prevButton').style.visibility = 'hidden ';
-	   		return false;
-	    }
-
-		index--;
-
-		progress_update();
-
-	    document.getElementById('question').innerHTML = cards.q[index];
-	    document.getElementById('answer').innerHTML   = cards.a[index];
-	}
-
-	// Wrong answer. Append at the end of array.
-	function wrong() {
-		cards.q.push(cards.q[index]);
-		cards.a.push(cards.a[index]);
-		cards.id.push(cards.id[index]);
-
-		stats[cards.id[index]].wrong++;
-	}
-
-	// Genetates a card #x out of #y
-	function progress_update(){
-	    document.getElementById('progress').innerHTML =
-	    	(index+1) + " out of " + cards.q.length;
-	}
-
-	function post_stats() {
-		// ==========================================
-    	// Do ajax call
-    	// ==========================================
-		$.post( "/flashcard/stats", stats)
-        	.done(function( data ) {
-            	// All is good
-        	}).fail(function() {
-            	sweetAlert("Oops...", "Something went wrong!", "error");
-        });
-	}
-
-</script>
-
-<div id="button_container" class="text-center">
-	<input type="button" class="btn btn-info" value="Prev" id="prevButton" onclick="previous()">
-	<input type="button" class="btn btn-info" value="Wrong" id="wrongButton" onclick="wrong()">
-	<input type="button" class="btn btn-info" value="Next" id="nextButton" onclick="next()">
-</div>
-
-</div>
-
+			// Send "right" to server for statistics.
+			function post_right() {
+				// ==========================================
+		    	// Do ajax call
+		    	// ==========================================
+		    	data = {id: cards.id[index], answer: 'right'};
+		
+				$.post( "/flashcardStats", data)
+		        	.done(function( data ) {
+		            	// All is good
+		        	}).fail(function() {
+		            	// Error happened...
+		        });
+			}
+		
+		</script>
+		
+		<div id="button_container" class="text-center">
+			<input type="button" class="btn btn-info" value="Prev" id="prevButton" onclick="previous()">
+			<input type="button" class="btn btn-info" value="Wrong" id="wrongButton" onclick="wrong()">
+			<input type="button" class="btn btn-info" value="Next" id="nextButton" onclick="right()">
+		</div>
+	</div>
 </body>
 </html>

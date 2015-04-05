@@ -12,6 +12,11 @@ stackcards_index.jsp
 <%@ page import="com.google.appengine.api.datastore.KeyFactory" %>
 <%@ page import="java.util.List" %>
 
+<%
+    User user = Authentication.authenticate();
+    String loginBar = Authentication.getLoginBar();
+%>
+
 <html>
 	<head>
 		<script>
@@ -47,11 +52,12 @@ stackcards_index.jsp
 	</head>
 	<body>
 	<div class="container">
+		<p class="text-right"><%= loginBar %></p>
 		<h1> My Card Stacks </h1>
 	
 		<ul>
 			<%
-				User user = Authentication.authenticate();
+				//User user = Authentication.authenticate();
 				
 				if (user != null){
 				

@@ -1,15 +1,25 @@
 <%@ page import="com.google.appengine.api.datastore.KeyFactory" %>
 <%@ page import="com.google.appengine.api.datastore.Key" %>
+<%@ page import="com.google.appengine.api.users.User" %>
 <%@ page import="ca.utoronto.ece1779h.model.Flashcard" %>
 <%@ page import="ca.utoronto.ece1779h.model.FlashcardHelper" %>
 <%@ page import="ca.utoronto.ece1779h.model.Stackcard" %>
 <%@ page import="ca.utoronto.ece1779h.model.StackcardHelper" %>
+<%@ page import="ca.utoronto.ece1779h.authentication.Authentication" %>
 <%@ page import="java.util.List" %>
 <%
     String keyString = request.getParameter("key");
     Key key = KeyFactory.stringToKey(keyString);
     Stackcard stack = StackcardHelper.getStackcard(key);
     List<Flashcard> flashcards = stack.getFlashcards();
+
+    User user = Authentication.authenticate();
+    String loginBar = Authentication.getLoginBar();
+
+    // Null user shouldn't be here. Redirect.
+    if (user == null){
+        response.sendRedirect("/");
+    } 
 %>
 <html>
   <head>
@@ -20,6 +30,7 @@
     <link href="../stylesheets/sweet-alert.css" rel="stylesheet">
   </head>
   <body>
+  <p><%= loginBar %></p>
   <h1><%= stack.getName() %></h1>
   <a href="/train?key=<%= keyString %>" >TRAIN</a>
     <table id="tblData" data-keystack="<%= keyString %>">
