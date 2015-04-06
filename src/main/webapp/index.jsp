@@ -17,7 +17,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>To the cloud!</title>
+    <title>Learn with Stacky!</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
@@ -49,7 +49,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand page-scroll" href="#page-top">
-                    <i class="fa fa-play-circle"></i>  <span class="light">To</span> The Cloud
+                    <i class="fa fa-play-circle"></i>  <span class="light">Learn</span> with Stacky!
                 </a>
             </div>
 
@@ -79,7 +79,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <h1 class="brand-heading">Flashcard</h1>
+                        <h1 class="brand-heading">Stacky</h1>
                         <p class="intro-text">A free, flashcard website to help you study<br>Made with <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>  by Didier, Kevin, and Dustin</p>
                         <a href="#about" class="btn btn-circle page-scroll">
                             <i class="fa fa-angle-double-down animated"></i>
