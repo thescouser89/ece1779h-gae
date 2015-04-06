@@ -80,6 +80,22 @@ public class Authentication {
             menuBar +=
                   "          </ul>"
                 + "        </li>"
+                + "        <li class=\"dropdown\">"
+                + "          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Train <span class=\"caret\"></span></a>"
+                + "          <ul class=\"dropdown-menu\" role=\"menu\">";
+
+            if (stackcards.size() == 0){
+                menuBar += "          <li><a href=\"#\">No stacks here.</a></li>";
+            }
+            
+            for (Stackcard s : stackcards)
+            {
+                menuBar += "          <li><a href=\"/train?key=" + KeyFactory.keyToString(s.getKey()) + "\">" + s.getName() + "</a></li>";
+            }
+
+            menuBar +=
+                  "          </ul>"
+                + "        </li>"
                 + "      </ul>"
                 + "      <ul class=\"nav navbar-nav navbar-right\">"
                 + "        <li class=\"dropdown\">"
