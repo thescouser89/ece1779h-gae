@@ -6,7 +6,7 @@
 
 <%
         User user = Authentication.authenticate();
-        String loginBar = Authentication.getLoginBar();
+        String loginBar = Authentication.getMenu();
 
         // Null user shouldn't be here. Redirect.
         if (user == null){
@@ -164,6 +164,8 @@
 				if (index >= 0) {
 					stats[cards.id[index]].right++;
 					post_right();
+				} else {
+					document.getElementById('wrongButton').style.visibility = 'visible ';
 				}
 		
 				next();
@@ -220,9 +222,9 @@
 		</script>
 		
 		<div id="button_container" class="text-center">
-			<input type="button" class="btn btn-info" value="Prev" id="prevButton" onclick="previous()">
-			<input type="button" class="btn btn-info" value="Wrong" id="wrongButton" onclick="wrong()">
-			<input type="button" class="btn btn-info" value="Next" id="nextButton" onclick="right()">
+			<input type="button" class="btn btn-default" value="Prev" id="prevButton" onclick="previous()">
+			<input type="button" class="btn btn-default" value="Wrong" id="wrongButton" onclick="wrong()">
+			<input type="button" class="btn btn-default" value="Next" id="nextButton" onclick="right()">
 		</div>
 	</div>
 </body>

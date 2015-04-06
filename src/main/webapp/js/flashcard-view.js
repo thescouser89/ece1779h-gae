@@ -11,7 +11,7 @@ function Add(){
 		"<td><span class='pie'>0/0</span></td>"+
 		"<td><input type='text' class='question' /></td>"+
 		"<td><input type='text' class='answer' /></td>"+
-		"<td><button class='btnSave'>save</button><button class='btnDelete'>delete</button></td>"+
+		"<td><button class=\"btnSave btn btn-default btn-xs\">save</button><button class=\"btnDelete btn btn-default btn-xs\">delete</button></td>"+
 		"</tr>");
     rebindButtonEvent();
     $("span.pie").peity("pie");
@@ -38,7 +38,7 @@ function Save(){
 	}
 	question.html(questionInputText.val());
 	answer.html(answerInputText.val());
-	tdButtons.html("<button class='btnDelete'>delete</button><button class='btnEdit'>edit</button>");
+	tdButtons.html("<button class=\"btnDelete btn btn-default btn-xs\">delete</button><button class=\"btnEdit btn btn-default btn-xs\">edit</button>");
 
 	var keyFlashVal = null;
 	if (par.data("key") != null) {
@@ -71,7 +71,7 @@ function Edit(){
 	question.html("<input type='text' id='txtName' value='"+question.html()+"'/>");
 	answer.html("<input type='text' id='txtPhone' value='"+answer.html()+"'/>");
 
-	tdButtons.html("<button class='btnSave'>save</button>");
+	tdButtons.html("<button class=\"btnSave btn btn-default btn-xs\">save</button>");
 
     rebindButtonEvent();
 };

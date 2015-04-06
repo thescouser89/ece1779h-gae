@@ -14,7 +14,7 @@
     List<Flashcard> flashcards = stack.getFlashcards();
 
     User user = Authentication.authenticate();
-    String loginBar = Authentication.getLoginBar();
+    String loginBar = Authentication.getMenu();
 
     // Null user shouldn't be here. Redirect.
     if (user == null){
@@ -28,35 +28,43 @@
     <script type="text/javascript" src="js/sweet-alert.min.js"></script>
     <script type="text/javascript" src="js/jquery.peity.min.js"></script>
     <link href="../stylesheets/sweet-alert.css" rel="stylesheet">
+    <!-- NEXT 2 LINES FOR BOOTSTRAP -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   </head>
-  <body>
-  <p><%= loginBar %></p>
-  <h1><%= stack.getName() %></h1>
-  <a href="/train?key=<%= keyString %>" >TRAIN</a>
-    <table id="tblData" data-keystack="<%= keyString %>">
-      <thead>
-        <tr>
-          <th>Success Rate</th>
-          <th>Question</th>
-          <th>Answer</th>
-          <th></th>
+    <body>
+      <div class="container">
+        <p class="text-right"><%= loginBar %></p>
+        <h1><%= stack.getName() %></h1>
+        <ul>
+        <a href="/train?key=<%= keyString %>" class="btn btn-default">TRAIN</a>
+        <br>
+        <table id="tblData" data-keystack="<%= keyString %>">
+          <thead>
+            <tr>
+              <th>Success Rate</th>
+              <th>Question</th>
+              <th>Answer</th>
+              <th></th>
+           </tr>
+          </thead>
+          <tbody>
+        <%
+        for (Flashcard f : flashcards) {
+        %>
+        <tr data-key="<%= KeyFactory.keyToString(f.getKey()) %>">
+        <td><span class="pie"><%= f.getNumberRights() %>/<%= f.getNumberRights() + f.getNumberWrongs() %></span></td>
+        <td><%= f.getQuestion() %></td>
+        <td><%= f.getAnswer() %></td>
+	      <td><button class="btnDelete btn btn-default btn-xs">delete</button><button class="btnEdit btn btn-default btn-xs">edit</button></td>
         </tr>
-      </thead>
-      <tbody>
-      <%
-      for (Flashcard f : flashcards) {
-      %>
-      <tr data-key="<%= KeyFactory.keyToString(f.getKey()) %>">
-      <td><span class="pie"><%= f.getNumberRights() %>/<%= f.getNumberRights() + f.getNumberWrongs() %></span></td>
-      <td><%= f.getQuestion() %></td>
-      <td><%= f.getAnswer() %></td>
-	  <td><button class='btnDelete'>delete</button><button class='btnEdit'>edit</button></td>
-      </tr>
-      <%
-      }
-      %>
+        <%
+        }
+        %>
       </tbody>
     </table>
-    <button id="btnAdd">Add New Flashcard</button>
+    <button id="btnAdd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>  Add New Flashcard</button>
+    <ul>
+    </div>
   </body>
 </html>
