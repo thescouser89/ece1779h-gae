@@ -38,7 +38,7 @@ function Save(){
 	}
 	question.html(questionInputText.val());
 	answer.html(answerInputText.val());
-	tdButtons.html("<button class=\"btnDelete btn btn-default\"><span class='glyphicon glyphicon-remove'></span></button><button class=\"btnEdit btn btn-default\"><span class='glyphicon glyphicon-pencil'></span></button>");
+	tdButtons.html("<button class=\"btnEdit btn btn-default\"><span class='glyphicon glyphicon-pencil'></span></button><button class=\"btnDelete btn btn-default\"><span class='glyphicon glyphicon-remove'></span></button>");
 
 	var keyFlashVal = null;
 	if (par.data("key") != null) {
@@ -79,7 +79,6 @@ function Edit(){
 
 function Delete(){
 	var par = $(this).parent().parent(); //tr
-	par.remove();
 	
 	var keyFlashVal = null;
 	if (par.data("key") != null) {
@@ -89,6 +88,9 @@ function Delete(){
 	if (keyFlashVal == null) {
 	    return;
 	}
+	
+	par.remove();
+	
 	$.post( "/flashcardDelete", { keyFlash: keyFlashVal})
         .done(function( data ) {
             var n = noty({text: 'Flashcard deleted!', timeout: 2000, layout: 'topRight', type: 'information'});

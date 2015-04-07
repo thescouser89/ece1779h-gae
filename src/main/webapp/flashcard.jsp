@@ -58,7 +58,7 @@
         <td class='col-md-2'><span class="pie"><%= f.getNumberRights() %>/<%= f.getNumberRights() + f.getNumberWrongs() %></span></td>
         <td class='col-md-4'><%= f.getQuestion() %></td>
         <td class='col-md-4'><%= f.getAnswer() %></td>
-	      <td class='col-md-2'><button class="btnDelete btn btn-default"><span class='glyphicon glyphicon-remove'></span></button><button class="btnEdit btn btn-default"><span class='glyphicon glyphicon-pencil'></span></button></td>
+	      <td class='col-md-2'><button class="btnEdit btn btn-default"><span class='glyphicon glyphicon-pencil'></span></button><button class="btnDelete btn btn-default"><span class='glyphicon glyphicon-remove'></span></button></td>
         </tr>
         <%
         }
