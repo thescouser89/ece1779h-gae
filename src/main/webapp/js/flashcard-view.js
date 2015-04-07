@@ -8,10 +8,10 @@ function rebindButtonEvent() {
 function Add(){
 	$("#tblData tbody").append(
 		"<tr>"+
-		"<td><span class='pie'>0/0</span></td>"+
-		"<td><input type='text' class='question' /></td>"+
-		"<td><input type='text' class='answer' /></td>"+
-		"<td><button class=\"btnSave btn btn-default btn-xs\">save</button><button class=\"btnDelete btn btn-default btn-xs\">delete</button></td>"+
+		"<td class='col-md-2'><span class='pie'>0/0</span></td>"+
+		"<td class='col-md-4'><textarea rows='1' class='question form-control' placeholder='Question' /></td>"+
+		"<td class='col-md-4'><textarea rows='1' class='answer form-control' placeholder='Answer'/></td>"+
+		"<td class='col-md-2'><button class=\"btnSave btn btn-default\"><span class='glyphicon glyphicon-floppy-disk'></span></button><button class=\"btnDelete btn btn-default\"><span class='glyphicon glyphicon-remove'></span></button></td>"+
 		"</tr>");
     rebindButtonEvent();
     $("span.pie").peity("pie");
@@ -24,8 +24,8 @@ function Save(){
 	var answer = par.children("td:nth-child(3)");
 	var tdButtons = par.children("td:nth-child(4)");
 
-    var questionInputText = question.children("input[type=text]");
-    var answerInputText = answer.children("input[type=text]");
+    var questionInputText = question.children("textarea");
+    var answerInputText = answer.children("textarea");
 	if (questionInputText.val().trim() == "") {
 		sweetAlert("Oops...", "Question is empty!", "error");
 		questionInputText.focus();
@@ -38,7 +38,7 @@ function Save(){
 	}
 	question.html(questionInputText.val());
 	answer.html(answerInputText.val());
-	tdButtons.html("<button class=\"btnDelete btn btn-default btn-xs\">delete</button><button class=\"btnEdit btn btn-default btn-xs\">edit</button>");
+	tdButtons.html("<button class=\"btnDelete btn btn-default\"><span class='glyphicon glyphicon-remove'></span></button><button class=\"btnEdit btn btn-default\"><span class='glyphicon glyphicon-pencil'></span></button>");
 
 	var keyFlashVal = null;
 	if (par.data("key") != null) {
@@ -52,6 +52,7 @@ function Save(){
 	                    keyFlash: keyFlashVal};
 	$.post( "/flashcardSave", data_to_send).done(function(data) {
             par.data("key", data["keyFlash"]);
+            var n = noty({text: 'Flashcard Updated!', timeout: 2000, layout: 'topRight', type: 'success'});
     }).fail(function() {
         sweetAlert("Oops...", "Something went wrong!", "error");
     });
@@ -68,10 +69,10 @@ function Edit(){
 	var tdButtons = par.children("td:nth-child(4)");
 
 
-	question.html("<input type='text' id='txtName' value='"+question.html()+"'/>");
-	answer.html("<input type='text' id='txtPhone' value='"+answer.html()+"'/>");
+	question.html("<textarea class='form-control' rows='1'>"+question.html()+"</textarea>");
+	answer.html("<textarea class='form-control' rows='1'>"+answer.html()+"</textarea>");
 
-	tdButtons.html("<button class=\"btnSave btn btn-default btn-xs\">save</button>");
+	tdButtons.html("<button class=\"btnSave btn btn-default\"><span class='glyphicon glyphicon-floppy-disk'></span></button>");
 
     rebindButtonEvent();
 };
@@ -90,7 +91,7 @@ function Delete(){
 	}
 	$.post( "/flashcardDelete", { keyFlash: keyFlashVal})
         .done(function( data ) {
-            sweetAlert("Flashcard deleted!");
+            var n = noty({text: 'Flashcard deleted!', timeout: 2000, layout: 'topRight', type: 'information'});
         }).fail(function() {
             sweetAlert("Oops...", "Something went wrong!", "error");
         });

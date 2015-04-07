@@ -24,10 +24,12 @@
 <html>
   <head>
     <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/flashcard-view.js"></script>
+    <script type="text/javascript" src="js/jquery.noty.packaged.min.js"></script>
     <script type="text/javascript" src="js/sweet-alert.min.js"></script>
     <script type="text/javascript" src="js/jquery.peity.min.js"></script>
-    <link href="../stylesheets/sweet-alert.css" rel="stylesheet">
+    <script type="text/javascript" src="js/flashcard-view.js"></script>
+    <link href="stylesheets/sweet-alert.css" rel="stylesheet">
+    <link href="stylesheets/flashcard.css" rel="stylesheet">
     <!-- NEXT 2 LINES FOR BOOTSTRAP -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -37,15 +39,15 @@
         <p class="text-right"><%= loginBar %></p>
         <h1><%= stack.getName() %></h1>
         <ul>
-        <a href="/train?key=<%= keyString %>" class="btn btn-default">TRAIN</a>
+        <a href="/train?key=<%= keyString %>" class="btn btn-primary">TRAIN</a>
         <br>
-        <table id="tblData" data-keystack="<%= keyString %>">
+        <table id="tblData" data-keystack="<%= keyString %>" class="table table-hover">
           <thead>
             <tr>
               <th>Success Rate</th>
               <th>Question</th>
               <th>Answer</th>
-              <th></th>
+              <th>Commands</th>
            </tr>
           </thead>
           <tbody>
@@ -53,17 +55,17 @@
         for (Flashcard f : flashcards) {
         %>
         <tr data-key="<%= KeyFactory.keyToString(f.getKey()) %>">
-        <td><span class="pie"><%= f.getNumberRights() %>/<%= f.getNumberRights() + f.getNumberWrongs() %></span></td>
-        <td><%= f.getQuestion() %></td>
-        <td><%= f.getAnswer() %></td>
-	      <td><button class="btnDelete btn btn-default btn-xs">delete</button><button class="btnEdit btn btn-default btn-xs">edit</button></td>
+        <td class='col-md-2'><span class="pie"><%= f.getNumberRights() %>/<%= f.getNumberRights() + f.getNumberWrongs() %></span></td>
+        <td class='col-md-4'><%= f.getQuestion() %></td>
+        <td class='col-md-4'><%= f.getAnswer() %></td>
+	      <td class='col-md-2'><button class="btnDelete btn btn-default"><span class='glyphicon glyphicon-remove'></span></button><button class="btnEdit btn btn-default"><span class='glyphicon glyphicon-pencil'></span></button></td>
         </tr>
         <%
         }
         %>
       </tbody>
     </table>
-    <button id="btnAdd" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>  Add New Flashcard</button>
+    <button id="btnAdd" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>  Add New Flashcard</button>
     <ul>
     </div>
   </body>
