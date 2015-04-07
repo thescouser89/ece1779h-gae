@@ -12,8 +12,8 @@ body {
 }
 .flip .card.flipped {
   -webkit-transform: rotatex(-180deg);
-  -moz-transform: rotatex(180deg);
-  transform: rotatex(180deg);
+  -moz-transform: rotatex(-180deg);
+  transform: rotatex(-180deg);
 }
 .flip .card {
   width: 100%;
@@ -50,8 +50,8 @@ h1{
 }
 .flip .card .back {
   -webkit-transform: rotatex(-180deg);
-  -moz-transform: rotatex(180deg);
-  transform: rotatex(180deg);
+  -moz-transform: rotatex(-180deg);
+  transform: rotatex(-180deg);
     background: blue;
     background: white;
     color: black;
