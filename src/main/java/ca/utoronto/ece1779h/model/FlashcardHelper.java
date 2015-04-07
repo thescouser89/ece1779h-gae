@@ -26,6 +26,8 @@ public class FlashcardHelper {
 		Flashcard fc = null;
 		try {
 			fc = em.find(Flashcard.class, key);
+		} catch (Exception e) {
+		
 		} finally {
 			em.close();
 		}
@@ -58,14 +60,7 @@ public class FlashcardHelper {
 	public static void deleteFlashcard(Key key){
 	
 		// if in memcache, delete it from there
-		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService("FC");
-		try {
-			if (memcache.contains(key)){
-				memcache.delete(key);
-			}
-		} catch (MemcacheServiceException e){
-		
-		}
+		removeFromCache(key);
 		
 		// Delete from datastore
 		EntityManager em = EMF.get().createEntityManager();
@@ -83,11 +78,36 @@ public class FlashcardHelper {
 	}
 	
 	public static void removeFromCache(Key key) {
+		// if the stack to which this fc belongs was cached, remove it
+		Flashcard fc = getFlashcard(key);
+		if (fc != null){
+			MemcacheService stackmemcache = MemcacheServiceFactory.getMemcacheService("FCS");
+			try {
+				if (stackmemcache.contains(fc.getStackcardKey())){
+					stackmemcache.delete(fc.getStackcardKey());
+				}
+			} catch (MemcacheServiceException e){
+			
+			}
+		}
+	
 		// if in memcache, delete it from there
 		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService("FC");
 		try {
 			if (memcache.contains(key)){
 				memcache.delete(key);
+			}
+		} catch (MemcacheServiceException e){
+		
+		}
+	}
+	
+	public static void removeStackFromCache(Key key) {
+		// if in memcache, delete it from there
+		MemcacheService stackmemcache = MemcacheServiceFactory.getMemcacheService("FCS");
+		try {
+			if (stackmemcache.contains(key)){
+				stackmemcache.delete(key);
 			}
 		} catch (MemcacheServiceException e){
 		

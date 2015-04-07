@@ -92,6 +92,7 @@ public class Flashcard implements Serializable {
 
     public void save() {
 		FlashcardHelper.removeFromCache(key);
+		FlashcardHelper.removeStackFromCache(stackcard);
         EntityManager em = EMF.get().createEntityManager();
         try {
             em.merge(this);
