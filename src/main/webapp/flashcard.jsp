@@ -11,7 +11,7 @@
     String keyString = request.getParameter("key");
     Key key = KeyFactory.stringToKey(keyString);
     Stackcard stack = StackcardHelper.getStackcard(key);
-    List<Flashcard> flashcards = stack.getFlashcards();
+    List<Flashcard> flashcards = FlashcardHelper.getFlashcardsFromStack(stack);
 
     User user = Authentication.authenticate();
     String loginBar = Authentication.getMenu();

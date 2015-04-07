@@ -2,6 +2,7 @@ package ca.utoronto.ece1779h.model;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.memcache.*;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -11,7 +12,7 @@ public class FlashcardHelper {
     public static Flashcard getFlashcard(Key key){
 	
 		// First check memcache
-		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
+		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService("FC");
 		try {
 			if (memcache.contains(key)){
 				return (Flashcard) memcache.get(key);
@@ -37,10 +38,27 @@ public class FlashcardHelper {
 		return fc;
 	}
 	
+	public static List<Flashcard> getFlashcardsFromStack (Stackcard stack){
+		// First check memcache
+		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService("FCS");
+		try {
+			if (memcache.contains(stack.getKey())){
+				return (List<Flashcard>) memcache.get(stack.getKey());
+			}
+		} catch (MemcacheServiceException e){
+		
+		}
+		
+		// If not in memcache, get from datastore (but first put it into memcache)
+		List<Flashcard> fcs = stack.getFlashcards();
+		memcache.put(stack.getKey(),fcs);
+		return fcs;
+	}
+	
 	public static void deleteFlashcard(Key key){
 	
 		// if in memcache, delete it from there
-		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
+		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService("FC");
 		try {
 			if (memcache.contains(key)){
 				memcache.delete(key);
@@ -66,7 +84,7 @@ public class FlashcardHelper {
 	
 	public static void removeFromCache(Key key) {
 		// if in memcache, delete it from there
-		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
+		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService("FC");
 		try {
 			if (memcache.contains(key)){
 				memcache.delete(key);

@@ -42,7 +42,7 @@
 	    String key = request.getParameter("key");
 	    Stackcard stack = StackcardHelper.getStackcard(KeyFactory.stringToKey(key));
         
-	    List<Flashcard> cards = stack.getFlashcards();
+	    List<Flashcard> cards = FlashcardHelper.getFlashcardsFromStack(stack);
         
         // Create js object strings to pass stack info
         String questions = "";

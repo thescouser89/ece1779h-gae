@@ -11,7 +11,7 @@ public class StackcardHelper {
     public static Stackcard getStackcard(Key key){
 	
 		// First check memcache
-		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
+		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService("SC");
 		try {
 			if (memcache.contains(key)){
 				return (Stackcard) memcache.get(key);
@@ -40,7 +40,7 @@ public class StackcardHelper {
 	public static void deleteStackcard(Key key){
 	
 		// if in memcache, delete it from there
-		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
+		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService("SC");
 		try {
 			if (memcache.contains(key)){
 				memcache.delete(key);
@@ -66,7 +66,7 @@ public class StackcardHelper {
 	
 	public static void removeFromCache(Key key) {
 		// if in memcache, delete it from there
-		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
+		MemcacheService memcache = MemcacheServiceFactory.getMemcacheService("SC");
 		try {
 			if (memcache.contains(key)){
 				memcache.delete(key);
