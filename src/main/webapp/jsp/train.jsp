@@ -215,7 +215,7 @@
 			    	(index+1) + " out of " + cards.q.length;
 			   	if (mistakes > 0){
 			   		document.getElementById('progress').innerHTML =
-			    	(index+1) + " out of " + cards.q.length + " <em class='text-danger'>(" + mistakes + " mistakes(s))<em>" ;
+			    	(index+1) + " out of " + cards.q.length + " <em class='text-danger'>(" + mistakes + " mistake(s))<em>" ;
 			   	}
 			}
 		
