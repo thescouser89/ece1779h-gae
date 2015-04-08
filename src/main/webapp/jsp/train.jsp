@@ -91,9 +91,15 @@
 			    <div class="card"> 
 			        <div class="face front"> 
 			            <h2 id="question">Start</h2>
+            			<div class="info">
+							<h5><span class='glyphicon glyphicon-repeat text-right'></span> Click to flip</h6>
+						</div>
 			        </div> 
 			        <div class="face back"> 
 			            <h2 id="answer">Ready?</h2>
+			            <div class="info">
+							<h5><span class='glyphicon glyphicon-repeat text-right'></span> Click to flip</h6>
+						</div>
 			        </div> 
 			    </div> 
 			</div> 
@@ -107,6 +113,9 @@
 						 id: [<%= ids %>]};
 			var stats = {<%= stats_by_id %>};
 			
+			var num_questions = 0;
+			var mistakes = 0;
+
 			var index = -1;
 			
 			function onload(){
@@ -114,6 +123,8 @@
 				document.getElementById('prevButton').style.visibility = 'hidden ';
 			    document.getElementById('wrongButton').style.visibility = 'hidden ';
 		
+			    num_questions = cards.q.length;
+
 			    // Initialize progress string
 				progress_update();
 			}
@@ -127,7 +138,12 @@
 		
 			    // Display quizz end card and stop.            
 			    if (index+1 >= cards.q.length) {
-			        document.getElementById('question').innerHTML = '<div>Quiz End, Thank you</div>'
+			        document.getElementById('question').innerHTML = 
+			        							'<div>End.<br>'
+			        if (mistakes > 0){
+			        	document.getElementById('question').innerHTML +=
+			        		'<br><em>' + mistakes + ' errors on ' + num_questions + ' cards<em></div>'
+			        }
 			        document.getElementById('answer').innerHTML = '<div></div>'
 			        document.getElementById('nextButton').style.visibility = 'hidden ';
 			        document.getElementById('wrongButton').style.visibility = 'hidden ';
@@ -145,7 +161,7 @@
 			function previous() {
 				// Make sure card is on "question" side before showing next card.
 				$('.flip').find('.card').removeClass('flipped')
-				
+
 				// If previous has been pressed, we know there's a next. Set button to visible.
 				document.getElementById('nextButton').style.visibility = 'visible ';
 				document.getElementById('wrongButton').style.visibility = 'visible ';
@@ -179,12 +195,16 @@
 		
 			// Wrong answer. Append replica at the end of array.
 			function wrong() {
-				cards.q.push(cards.q[index]);
-				cards.a.push(cards.a[index]);
-				cards.id.push(cards.id[index]);
-		
-				stats[cards.id[index]].wrong++;
-				post_wrong();
+				if (index >= 0) {
+					cards.q.push(cards.q[index]);
+					cards.a.push(cards.a[index]);
+					cards.id.push(cards.id[index]);
+
+					mistakes++;
+
+					stats[cards.id[index]].wrong++;
+					post_wrong();
+				}
 		
 				next();
 			}
@@ -193,6 +213,10 @@
 			function progress_update(){
 			    document.getElementById('progress').innerHTML =
 			    	(index+1) + " out of " + cards.q.length;
+			   	if (mistakes > 0){
+			   		document.getElementById('progress').innerHTML =
+			    	(index+1) + " out of " + cards.q.length + " <em class='text-danger'>(" + mistakes + " mistakes(s))<em>" ;
+			   	}
 			}
 		
 			// Send "wrong" to server for statistics.

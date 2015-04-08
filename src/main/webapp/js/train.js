@@ -4,11 +4,11 @@
 //
 
 $(document).ready(function() {
-    $('.flip').click(function(){
-        $(this).find('.card').addClass('flipped').mouseleave(function(){
-            $(this).removeClass('flipped');
-        });
-        return false;
+    $('.front').click(function(){
+        $(document).find('.card').addClass('flipped')
+    });
+    $('.back').click(function(){
+        $(document).find('.card').removeClass('flipped')
     });
 
     $("body").keydown(function(e) {

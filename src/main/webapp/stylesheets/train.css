@@ -38,9 +38,6 @@ body {
     text-align: center;
     line-height: 50px;
 }
-h1{
-  font-size: 0.5em;
-}
 .flip .card .front {
   position: absolute;
   z-index: 1;
@@ -56,4 +53,10 @@ h1{
     background: white;
     color: black;
     cursor: pointer;
+}
+.info {
+    padding: 10px 10px 0px 10px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
