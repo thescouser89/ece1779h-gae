@@ -119,6 +119,9 @@
 			}
 		
 			function next() {
+				// Make sure card is on "question" side before showing next card.
+				$('.flip').find('.card').removeClass('flipped')
+
 				// If "next" (or "wrong") has been pressed, we know there's a previous. Set button to visible.
 				document.getElementById('prevButton').style.visibility = 'visible ';
 		
@@ -140,6 +143,9 @@
 			}
 		
 			function previous() {
+				// Make sure card is on "question" side before showing next card.
+				$('.flip').find('.card').removeClass('flipped')
+				
 				// If previous has been pressed, we know there's a next. Set button to visible.
 				document.getElementById('nextButton').style.visibility = 'visible ';
 				document.getElementById('wrongButton').style.visibility = 'visible ';
