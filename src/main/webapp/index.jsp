@@ -103,7 +103,7 @@
     <!-- Footer -->
     <footer>
         <div class="container text-center">
-            <p>Copyright &copy; Your Website 2015</p>
+            <p>Copyright &copy; Stacky 2015</p>
         </div>
     </footer>
 
