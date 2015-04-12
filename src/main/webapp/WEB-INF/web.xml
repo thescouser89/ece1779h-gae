@@ -3,10 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <servlet>
-        <servlet-name>card</servlet-name>
-        <servlet-class>ca.utoronto.ece1779h.servlet.CardServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>flashcardUpdate</servlet-name>
         <servlet-class>ca.utoronto.ece1779h.servlet.FlashcardUpdate</servlet-class>
     </servlet>
@@ -15,16 +11,8 @@
         <servlet-class>ca.utoronto.ece1779h.servlet.FlashcardDelete</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Hello</servlet-name>
-        <servlet-class>ca.utoronto.ece1779h.servlet.Hello</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>oauth</servlet-name>
-        <servlet-class>ca.utoronto.ece1779h.servlet.OAuth2Callback</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>newStack</servlet-name>
-        <servlet-class>ca.utoronto.ece1779h.servlet.NewStack</servlet-class>
+        <servlet-name>flashcardStats</servlet-name>
+        <servlet-class>ca.utoronto.ece1779h.servlet.FlashcardStats</servlet-class>
     </servlet>
 	<servlet>
 		<servlet-name>myStacks</servlet-name>
@@ -43,9 +31,14 @@
 		<jsp-file>/createStackcard.jsp</jsp-file>
 	</servlet>
     <servlet>
-        <servlet-name>flashcardStats</servlet-name>
-        <servlet-class>ca.utoronto.ece1779h.servlet.FlashcardStats</servlet-class>
+        <servlet-name>train</servlet-name>
+        <jsp-file>/jsp/train.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>flashflash</servlet-name>
+        <jsp-file>/flashcard.jsp</jsp-file>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>myStacks</servlet-name>
         <url-pattern>/mystacks</url-pattern>
@@ -62,25 +55,14 @@
         <servlet-name>createStack</servlet-name>
         <url-pattern>/createstack</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>train</servlet-name>
-        <jsp-file>/jsp/train.jsp</jsp-file>
-    </servlet>
+
     <servlet>
         <servlet-name>home</servlet-name>
         <jsp-file>/index.jsp</jsp-file>
     </servlet>
-    <servlet>
-        <servlet-name>flashflash</servlet-name>
-        <jsp-file>/flashcard.jsp</jsp-file>
-    </servlet>
     <servlet-mapping>
         <servlet-name>flashflash</servlet-name>
         <url-pattern>/flashcard</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>card</servlet-name>
-        <url-pattern>/card</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>flashcardUpdate</servlet-name>
@@ -93,14 +75,6 @@
     <servlet-mapping>
         <servlet-name>home</servlet-name>
         <url-pattern>/</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>oauth</servlet-name>
-        <url-pattern>/oauth2callback</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>newStack</servlet-name>
-        <url-pattern>/newStack</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>train</servlet-name>
