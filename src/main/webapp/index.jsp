@@ -95,7 +95,13 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h2>About Flashcard</h2>
-                <p>Flashcard is a free Flashcard website</p>
+                <p>Log in through Google Authentication Services.</p>
+                <p>Create Stacks.</p>
+                <img src="/img/stack-view.png" alt="Stack View" style="width:350px;height:225px">
+                <p><br>Add Cards.</p>
+                <img src="/img/card-view.png" alt="Stack View" style="width:350px;height:225px">
+                <p><br>Learn.</p>
+                <img src="/img/train-view.png" alt="Stack View" style="width:400px;height:233px">
             </div>
         </div>
     </section>

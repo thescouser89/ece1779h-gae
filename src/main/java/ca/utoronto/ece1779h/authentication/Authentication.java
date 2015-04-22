@@ -10,6 +10,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 public class Authentication {
 
+    // Get current user.
 	public static User authenticate(){
 
 		UserService userService = UserServiceFactory.getUserService();
@@ -17,6 +18,7 @@ public class Authentication {
         return userService.getCurrentUser();
 	}
 
+    // Returns regular, text-based, menu.
 	public static String getLoginBar(){
 		String loginBar;
 
@@ -35,11 +37,31 @@ public class Authentication {
         return loginBar;
 	}
 
-    public static String getMenu(){
-        String menuBar;
+    // Return HTML for menu bar. Dropdown menus for each stacks, user menu with options to logout, etc.
+    public static String getMenu(String section){
+        String menuBar, stackActive, cardActive, trainActive;
 
         UserService userService = UserServiceFactory.getUserService();
         User user =  userService.getCurrentUser();
+
+        // Highlight menu links depending on the current page.
+        if (section.equals("stacks")){
+            stackActive = "<li class=\"active\">";
+            cardActive = "<li class=\"dropdown\">";
+            trainActive = "<li class=\"dropdown\">";
+        } else if (section.equals("cards")){
+            stackActive = "<li>";
+            cardActive = "<li class=\"dropdown active\">";
+            trainActive = "<li class=\"dropdown\">";
+        } else if (section.equals("train")){
+            stackActive = "<li>";
+            cardActive = "<li class=\"dropdown\">";
+            trainActive = "<li class=\"dropdown active\">";
+        } else {
+            stackActive = "<li>";
+            cardActive = "<li class=\"dropdown\">";
+            trainActive = "<li class=\"dropdown\">";
+        }
 
         if (user != null) {
             menuBar =
@@ -59,8 +81,8 @@ public class Authentication {
                 + "    <!-- Collect the nav links, forms, and other content for toggling -->"
                 + "    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">"
                 + "      <ul class=\"nav navbar-nav\">"
-                + "        <li class=\"active\"><a href=\"/mystacks\">Home <span class=\"sr-only\">(current)</span></a></li>"
-                + "        <li class=\"dropdown\">"
+                + "        " + stackActive + "<a href=\"/mystacks\">Home <span class=\"sr-only\">(current)</span></a></li>"
+                + "        " + cardActive
                 + "          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">My Stacks <span class=\"caret\"></span></a>"
                 + "          <ul class=\"dropdown-menu\" role=\"menu\">";
 
@@ -80,10 +102,11 @@ public class Authentication {
             menuBar +=
                   "          </ul>"
                 + "        </li>"
-                + "        <li class=\"dropdown\">"
+                + "        " + trainActive
                 + "          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Train <span class=\"caret\"></span></a>"
                 + "          <ul class=\"dropdown-menu\" role=\"menu\">";
 
+            // Create link in dropdown menu for eack stack...
             if (stackcards.size() == 0){
                 menuBar += "          <li><a href=\"#\">No stacks here.</a></li>";
             }
@@ -93,6 +116,7 @@ public class Authentication {
                 menuBar += "          <li><a href=\"/train?key=" + KeyFactory.keyToString(s.getKey()) + "\">" + s.getName() + "</a></li>";
             }
 
+            // Menu name customized to the user's google nickname.
             menuBar +=
                   "          </ul>"
                 + "        </li>"

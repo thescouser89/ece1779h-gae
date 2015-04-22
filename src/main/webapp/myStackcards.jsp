@@ -14,7 +14,7 @@ stackcards_index.jsp
 
 <%
     User user = Authentication.authenticate();
-    String loginBar = Authentication.getMenu();
+    String loginBar = Authentication.getMenu("stacks");
 %>
 
 <html>

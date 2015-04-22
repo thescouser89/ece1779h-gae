@@ -14,7 +14,7 @@
     List<Flashcard> flashcards = FlashcardHelper.getFlashcardsFromStack(stack);
 
     User user = Authentication.authenticate();
-    String loginBar = Authentication.getMenu();
+    String loginBar = Authentication.getMenu("cards");
 
     // Null user shouldn't be here. Redirect.
     if (user == null){
